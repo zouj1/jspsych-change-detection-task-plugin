@@ -209,9 +209,7 @@ jsPsych.plugins["change-detection-task"] = (function() {
       [colors_2, changed_i, old_color, new_color] = change_one([colors_1, opts_1])
     }
     else{
-			console.log(colors_1)
       colors_2 = deep_copy(colors_1)
-			console.log(colors_1)
 			changed_i = null
 			old_color = null
 			new_color = null
