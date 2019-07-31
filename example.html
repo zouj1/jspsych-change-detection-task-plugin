@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Change Detection Plugin</title>
+		<script src="jspsych-6.0.5/jspsych.js"></script>
+		<script src="jspsych-6.0.5/plugins/jspsych-instructions.js"></script>
+		<script src="jspsych-6.0.5/plugins/jspsych-html-keyboard-response.js"></script>
+		<script src='change_detection_plugin.js'></script>
+		<link rel="stylesheet" href="jspsych-6.0.5/css/jspsych.css"></link>
+	</head>
+	<body></body>
+	<script>
+
+		my_timeline = []
+
+		var instructions = {
+		    type: 'instructions',
+		    pages: [
+		        '<p> Welcome!</p> <p> This plugin generates circular arrays of colored squares. </p>'+
+						'<p> The stimulus that is generated based on a <q>task_type</q> parameter. </p>',
+						'<p> In the <q>Same</q> condition, the subject is shown the same array of squares twice. </p>'+
+						'<p> In the <q>Different</q> condition, the subject is shown an array of squares followed by a new array which is the same as the previous array with the exception of one square which has changed colors. </p>'+
+						"<p> Press next to see example stimuli."
+		        ],
+				button_label_next: 'Next',
+			  show_clickable_nav: true,
+		};
+
+
+		// declare the block.
+		var diff_start = {
+			type: 'html-keyboard-response',
+			stimulus: '<p> Press any key to see a presentation of the <b><q>Different</q> condition</b> stimulus </p>',
+		}
+
+		var different = {
+		  type:'change-detection-task',
+			task_type: 'Different'
+		};
+
+		var same_start = {
+			type: 'html-keyboard-response',
+			stimulus: '<p> Press any key to see a presentation of the <b><q>Same</q> condition</b> stimulus </p>',
+		}
+
+		var same = {
+		  type:'change-detection-task',
+			task_type: 'Same'
+		};
+
+		var demo_end = {
+			type: 'html-keyboard-response',
+			stimulus: '<p> End of Demo </p>',
+		}
+
+
+		jsPsych.init({
+			timeline: [instructions, diff_start, different, same_start, same, demo_end],
+			on_finish: function(){
+				jsPsych.data.displayData();
+			}
+		});
+	</script>
+</html>
